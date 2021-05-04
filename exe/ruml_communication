@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+PATTERN = /"(.*)" -> "(.*)": (.*)/.freeze
+
+puts $stdin.read.lines.grep(PATTERN)
+           .map { |line| line.gsub(PATTERN, '(\\1) -down-> (\\2): \\3') }
+           .uniq
+           .join
