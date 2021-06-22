@@ -55,7 +55,7 @@ module Ruml
                                          .last
       return unless group_by
 
-      parameters = trace_point.parameters.map { |(_type, name)| trace_point.binding.local_variable_get(name) }
+      parameters = trace_point.parameters.map { |(_type, name)| _type.in?([:req, :keyreq]) ? trace_point.binding.local_variable_get(name) : name }
 
       add_call(group_by, caller, callee, call, parameters, "#{trace_point.path}:#{trace_point.lineno}")
     rescue StandardError => e
